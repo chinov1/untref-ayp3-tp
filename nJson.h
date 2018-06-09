@@ -22,7 +22,7 @@ typedef enum _boolean {
  * un nJson.
  * @type writer
  */
-typedef void (*writer)(FILE*, void*);
+typedef void (*writer)(FILE*, void*, unsigned);
 
 /**
  * Estructura base para los nodos de JSON.
@@ -41,6 +41,11 @@ typedef struct _nJson {
 	 * Tamaño en bytes del valor almacenado en el nodo.
 	 */
 	unsigned value_size;
+	/*
+	 * Cantidad de elementos del valor, utilizado para el manejo de arrays.
+	 */
+	unsigned cant_elementos;
+
 	/**
 	 * Puntero a la lista de atributos dentro del nodo. Solo hijos directos.
 	 */
@@ -74,7 +79,7 @@ nJson* njson_init(nJson* this);
  * @return nJson* Puntero al nJson con el cual se operó.
  */
 nJson* njson_set_value(nJson* this, const char* name, void* value,
-		unsigned value_size, writer write);
+		unsigned value_size, unsigned elementos, writer write);
 
 /**
  * Agrega un atributo al nJson especificado.
@@ -101,34 +106,73 @@ nJson* njson_write(nJson* this, FILE* output);
  */
 void njson_release(nJson* this);
 
+
+/* -------------------------------------------------------
+ * Funciones necesarias para las consignas de la entrega 3
+ * -------------------------------------------------------
+ */
+
+/*
+ * Funcion que busca un Json padre de atributos.
+ * @param. nJson raiz.
+ * @param. nJson buscado.
+ * @param. nJson para devolver el resultado.
+ * @return.  retorna un puntero al nJson encontrado.
+ */
+nJson* buscar_njson(nJson*, nJson*, nJson*);
+
+
+/*
+ * Funcion para modificar alguun valor de un nJson
+ * @param. nJson raiz.
+ * @param. nJson a modificar.
+ * @param. char* name del valor a nodificar.
+ * @param. puntero void, valor nuevo.
+ * @param. longitud del valor nuevo.
+ * @return: retorna nJson raiz modificado.
+ */
+nJson* modificar_njson(nJson*, nJson*, char*, void*, unsigned);
+
+
+/*
+ * Funcion utilizadapara elimiinar un nJson.
+ * @param. nJson raiz.
+ * @param. nJson padre de un atributo a eliminar.
+ * @param. char* name del atributo a eliminar.
+ * @return: retorna el nJson raiz modificado.
+ */
+nJson* eliminar_njson(nJson*, nJson*,char*);
+
+
 /**
  * Escribe un nJson como texto en el archivo espeficado.
  */
-void write_njson(FILE* output, void* value);
+void write_njson(FILE* output, void* value, unsigned cantidad);
 
 /**
  * Escribe una cadena de caracteres como texto en el archivo espeficado.
  */
-void write_string(FILE* output, void* value);
+void write_string(FILE* output, void* value, unsigned cantidad);
 
 /**
  * Escribe un entero como texto en el archivo espeficado.
  */
-void write_int(FILE* output, void* value);
+void write_int(FILE* output, void* value, unsigned cantidad);
 
 /**
  * Escribe un booleano como texto en el archivo espeficado.
  */
-void write_boolean(FILE* output, void* value);
+void write_boolean(FILE* output, void* value, unsigned cantidad);
 
 /**
  * Escribe un flotante como texto en el archivo espeficado.
  */
-void write_float(FILE* output, void* value);
+void write_float(FILE* output, void* value, unsigned cantidad);
 
 /**
  * Escribe un flotante de doble presición como texto en el archivo espeficado.
  */
-void write_double(FILE* output, void* value);
+void write_double(FILE* output, void* value, unsigned cantidad);
+
 
 #endif /* _NJSON_H_ */
