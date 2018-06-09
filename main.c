@@ -404,7 +404,7 @@ int main(int argc, char **argv) {
 	modificar_njson(&root,&root, "bytes", &valor, sizeof(valor));//Prueba la funcion modificar_njson().
 	//eliminar_njson(&root, &root, "rev");                       //Prueba la funcion eliminar_njson().
 	//eliminar_njson(&root, &contents, "bytes");                 //Prueba la funcion eliminar_njson().
-	printf
+
 	njson_write(&root, output_file);
 	njson_release(&root);
 }
