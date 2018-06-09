@@ -1,5 +1,7 @@
-/* Definition file for nJson */
-
+/*
+ * nJson.c
+* Definition file for nJson
+*/
 #include "nJson.h"
 
 nJson* njson_init(nJson* this) {
@@ -49,7 +51,7 @@ nJson* njson_add_attribute(nJson* this, nJson* attribute, unsigned attribute_siz
 		this->children = (nJson*) malloc(attribute_size);
 		memcpy(this->children, attribute, attribute_size);
 	}
-	//this->cant_elementos++;
+
 /*
 	free(this->name);
 	this->name = 0x0;
@@ -209,11 +211,14 @@ void write_njson(FILE* output, void* value, unsigned cantidad) { //En este caso 
 }                                                                //El parametro se recibe por una cuestion de compatibilidad
                                                                  //con la funcion generalizada.
 
+
 void write_string(FILE* output, void* value, unsigned cantidad) {//Igual que  la anterior, no se utiliza el desplamiento
 	fprintf(output, "\"%s\"", (char*) value );                   //debido a que, la funcion, trata al valor como un string
 }                                                                //y no como una cadena de caracteres.
+
                                                                  //El parametro se recibe por una cuestion de compatibilidad
                                                                  //con la funcion generalizada.
+
 
 void write_int(FILE* output, void* value, unsigned cantidad) {
 	fprintf(output, "%d", *((int*) value + cantidad));

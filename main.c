@@ -1,4 +1,5 @@
 
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -46,7 +47,10 @@ int main(int argc, char **argv) {
 	}
 
  		// Segunda entrega 2018-05-19
-/* 		 {
+
+ 	
+ 		 {
+
  			    nJson root;
  			    njson_init(&root);
 
@@ -168,7 +172,7 @@ int main(int argc, char **argv) {
 
  		 }
 
-*/
+
 
 
 
@@ -206,9 +210,14 @@ int main(int argc, char **argv) {
  		nJson* contents;
  		njson_init(&contents);
 
- 		njson_set_value(&contents,"contents",0x0, 0, 2,&write_njson);// el quinto parametro de un nJson Padre
+
+ 		njson_set_value(&contents,"contents",0x0, 0, 2,&write_njson);    // el quinto parametro de un nJson Padre
                                                                      // es mayor que 1 solo a los efectos de
- 																	 // considerarlo un array.
+ 																	                                   // considerarlo un array.
+
+ 		njson_set_value(&contents,"contents",0x0, 0, 2,&write_njson);
+
+
 
 	    nJson contents_size_attribute;
 		char* contents_size_value = "2.3 MB";
@@ -298,7 +307,11 @@ int main(int argc, char **argv) {
 /*-----------------nJson root definicion ---------------------------*/
 		nJson root;
 	    njson_init(&root);
+
 	    njson_set_value(&root,"raiz",0x0, 0, 2,&write_njson);
+
+
+
 
 	    nJson size_attribute;
 		char* size_value = "0 bytes";
@@ -356,6 +369,9 @@ int main(int argc, char **argv) {
 				strlen(icon_value) + 1, 1, &write_string);
 
 
+
+
+
 		nJson root_attribute;
 		char* root_value = "dropbox";
 		njson_init(&root_attribute);
@@ -376,6 +392,7 @@ int main(int argc, char **argv) {
 
 
 
+		printf("sizeof(nJson) %i\n", sizeof(nJson));
 		// Se combinan los diferentes nodos sobre el nodo raiz.
 		njson_add_attribute(&root, &size_attribute, sizeof(size_attribute));
 		njson_add_attribute(&root, &hash_attribute, sizeof(hash_attribute));
@@ -405,6 +422,7 @@ int main(int argc, char **argv) {
 	//eliminar_njson(&root, &root, "rev");                       //Prueba la funcion eliminar_njson().
 	//eliminar_njson(&root, &contents, "bytes");                 //Prueba la funcion eliminar_njson().
 
+
 	njson_write(&root, output_file);
 	njson_release(&root);
 }
@@ -414,4 +432,3 @@ int main(int argc, char **argv) {
 	fclose(output_file);
  	return 0;//SUCCESS;
  }
-
